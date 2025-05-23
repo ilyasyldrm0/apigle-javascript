@@ -1,0 +1,36 @@
+{
+  "name": "apigle",
+  "version": "0.1.2",
+  "description": "Official JavaScript/TypeScript client for apigle.com API.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyasyldrm0/apigle-javascript.git"
+  },
+  "keywords": [
+    "apigle",
+    "api",
+    "client",
+    "typescript",
+    "javascript"
+  ],
+  "author": "apigle.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ilyasyldrm0/apigle-javascript/issues"
+  },
+  "homepage": "https://apigle.com",
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
