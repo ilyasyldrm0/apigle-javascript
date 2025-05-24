@@ -49,18 +49,15 @@ export class ApigleClient {
   }
 
   // /v2/download
-  async download(video: string, type: string = 'mp4', resolution?: number) {
+  async download(video: string, type: string = 'mp3', resolution?: number) {
     const params: any = { video, type };
     if (resolution) params.resolution = resolution;
     return this.get(ENDPOINTS.download, params);
   }
 
   // /v2/search
-  async searchV2(q: string, part: string = 'snippet', regionCode?: string, maxResults?: number, order?: string, pageToken?: string) {
-    const params: any = { q, part };
-    if (regionCode) params.regionCode = regionCode;
-    if (maxResults) params.maxResults = maxResults;
-    if (order) params.order = order;
+  async searchV2(q: string, part: string = 'snippet', regionCode: string = "US", maxResults: number = 100, order: string = "relevance", pageToken?: string) {
+    const params: any = { q, part, regionCode, maxResults, order };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.searchV2, params);
   }
@@ -84,10 +81,8 @@ export class ApigleClient {
   }
 
   // /v2/channelVideos
-  async channelVideos(channelId: string, part: string = 'snippet,id', order?: string, maxResults?: number, pageToken?: string) {
-    const params: any = { channelId, part };
-    if (order) params.order = order;
-    if (maxResults) params.maxResults = maxResults;
+  async channelVideos(channelId: string, part: string = 'snippet,id', order: string = "date", maxResults: number = 50, pageToken?: string) {
+    const params: any = { channelId, part, order, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.channelVideos, params);
   }
@@ -99,18 +94,15 @@ export class ApigleClient {
   }
 
   // /v2/playlistVideos
-  async playlistVideos(playlistId: string, part: string = 'snippet', maxResults?: number, pageToken?: string) {
-    const params: any = { playlistId, part };
-    if (maxResults) params.maxResults = maxResults;
+  async playlistVideos(playlistId: string, part: string = 'snippet', maxResults: number = 50, pageToken?: string) {
+    const params: any = { playlistId, part, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.playlistVideos, params);
   }
 
   // /v2/trending
-  async trending(part: string = 'snippet', videoCategoryId: number = 1, regionCode?: string, maxResults?: number, pageToken?: string) {
-    const params: any = { part, videoCategoryId };
-    if (regionCode) params.regionCode = regionCode;
-    if (maxResults) params.maxResults = maxResults;
+  async trending(part: string = 'snippet', videoCategoryId: number = 1, regionCode: string = "US", maxResults: number = 50, pageToken?: string) {
+    const params: any = { part, videoCategoryId,regionCode, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.trending, params);
   }
