@@ -1,6 +1,6 @@
 {
   "name": "apigle",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Official JavaScript/TypeScript client for apigle.com API.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,9 @@
     "build": "tsc",
     "prepare": "npm run build",
     "test": "echo \"No tests yet\" && exit 0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",

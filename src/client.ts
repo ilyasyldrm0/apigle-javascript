@@ -21,7 +21,7 @@ export class ApigleClient {
 
   private getHeaders() {
     this.checkKey();
-    return { 'x-api-key': this.apiKey! };
+    return { "x-api-key": this.apiKey! };
   }
 
   private async get(endpoint: string, params?: Record<string, any>) {
@@ -49,66 +49,103 @@ export class ApigleClient {
   }
 
   // /v2/download
-  async download(video: string, type: string = 'mp3', resolution?: number) {
+  async download(video: string, type: string = "mp3", resolution?: number) {
     const params: any = { video, type };
     if (resolution) params.resolution = resolution;
     return this.get(ENDPOINTS.download, params);
   }
 
+  // /v2/downloadstr
+  async downloadstr(video: string) {
+    const params: any = { video };
+    return this.get(ENDPOINTS.downloadstr, params);
+  }
+
   // /v2/search
-  async searchV2(q: string, part: string = 'snippet', regionCode: string = "US", maxResults: number = 100, order: string = "relevance", pageToken?: string) {
+  async searchV2(
+    q: string,
+    part: string = "snippet",
+    regionCode: string = "US",
+    maxResults: number = 100,
+    order: string = "relevance",
+    pageToken?: string
+  ) {
     const params: any = { q, part, regionCode, maxResults, order };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.searchV2, params);
   }
 
   // /v2/videoComments
-  async videoComments(videoId: string, part: string = 'snippet', maxResults: number = 100) {
+  async videoComments(
+    videoId: string,
+    part: string = "snippet",
+    maxResults: number = 100
+  ) {
     const params = { videoId, part, maxResults };
     return this.get(ENDPOINTS.videoComments, params);
   }
 
   // /v2/videoDetails
-  async videoDetails(id: string, part: string = 'contentDetails,snippet,statistics') {
+  async videoDetails(
+    id: string,
+    part: string = "contentDetails,snippet,statistics"
+  ) {
     const params = { id, part };
     return this.get(ENDPOINTS.videoDetails, params);
   }
 
   // /v2/channelDetails
-  async channelDetails(id: string, part: string = 'snippet,statistics') {
+  async channelDetails(id: string, part: string = "snippet,statistics") {
     const params = { id, part };
     return this.get(ENDPOINTS.channelDetails, params);
   }
 
   // /v2/channelVideos
-  async channelVideos(channelId: string, part: string = 'snippet,id', order: string = "date", maxResults: number = 50, pageToken?: string) {
+  async channelVideos(
+    channelId: string,
+    part: string = "snippet,id",
+    order: string = "date",
+    maxResults: number = 50,
+    pageToken?: string
+  ) {
     const params: any = { channelId, part, order, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.channelVideos, params);
   }
 
   // /v2/playlistDetails
-  async playlistDetails(id: string, part: string = 'snippet') {
+  async playlistDetails(id: string, part: string = "snippet") {
     const params = { id, part };
     return this.get(ENDPOINTS.playlistDetails, params);
   }
 
   // /v2/playlistVideos
-  async playlistVideos(playlistId: string, part: string = 'snippet', maxResults: number = 50, pageToken?: string) {
+  async playlistVideos(
+    playlistId: string,
+    part: string = "snippet",
+    maxResults: number = 50,
+    pageToken?: string
+  ) {
     const params: any = { playlistId, part, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.playlistVideos, params);
   }
 
   // /v2/trending
-  async trending(part: string = 'snippet', videoCategoryId: number = 1, regionCode: string = "US", maxResults: number = 50, pageToken?: string) {
-    const params: any = { part, videoCategoryId,regionCode, maxResults };
+  async trending(
+    part: string = "snippet",
+    videoCategoryId: number = 1,
+    regionCode: string = "US",
+    maxResults: number = 50,
+    pageToken?: string
+  ) {
+    const params: any = { part, videoCategoryId, regionCode, maxResults };
     if (pageToken) params.pageToken = pageToken;
     return this.get(ENDPOINTS.trending, params);
   }
 
   // /v2/videoCategories
-  async videoCategories(part: string = 'snippet') {
+  async videoCategories(part: string = "snippet") {
     const params = { part };
     return this.get(ENDPOINTS.videoCategories, params);
   }
@@ -119,32 +156,32 @@ export class ApigleClient {
   }
 
   /**
-   * Node.js ortamında dosya indirmek için yardımcı fonksiyon.
-   * Tarayıcıda çalışmaz!
+   * Note: This function is designed to work in a Node.js environment
+   * and will not work in a browser environment due to the use of 'fs' and 'axios'.
    */
   async downloadFile(
     video: string,
     outputPath: string,
-    type: string = 'mp4',
+    type: string = "mp4",
     resolution?: number
   ): Promise<boolean> {
-    // Dinamik olarak fs ve axios'u sadece Node ortamında yükle
+    // Dynamically import 'axios' and 'fs' to ensure compatibility with environments that may not support them natively
     try {
       const response = await this.download(video, type, resolution);
       const fileUrl = response.url;
       if (!fileUrl) return false;
-      const axios = await import('axios').then(m => m.default || m);
-      const fs = await import('fs');
-      const fileResponse = await axios.get(fileUrl, { responseType: 'stream' });
+      const axios = await import("axios").then((m) => m.default || m);
+      const fs = await import("fs");
+      const fileResponse = await axios.get(fileUrl, { responseType: "stream" });
       await new Promise((resolve, reject) => {
         const writer = fs.createWriteStream(outputPath);
         fileResponse.data.pipe(writer);
-        writer.on('finish', () => resolve(undefined));
-        writer.on('error', reject);
+        writer.on("finish", () => resolve(undefined));
+        writer.on("error", reject);
       });
       return true;
     } catch (e) {
-      console.error('Download error:', e);
+      console.error("Download error:", e);
       return false;
     }
   }

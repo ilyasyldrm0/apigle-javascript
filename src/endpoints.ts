@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   searchV1: "/v1/search",
   searchV2: "/v2/search",
   download: "/v2/download",
+  downloadstr: "/v2/downloadstr",
   videoComments: "/v2/videoComments",
   videoDetails: "/v2/videoDetails",
   channelDetails: "/v2/channelDetails",

@@ -48,7 +48,14 @@ const info = await client.download('QW8-UVmMm_Q', 'mp4', 360);
 console.log(info.url);
 ```
 
-### 3. Download Video File (Node.js Only)
+### 3. Get Download Stream URLs & Metadata (v2)
+Returns a download stream URLs and metadata for the video. Does not download the file.
+```js
+const info = await client.downloadstr('QW8-UVmMm_Q');
+console.log(info);
+```
+
+### 4. Download Video File (Node.js Only)
 Downloads the video file to the specified path. Returns `true` if successful.
 Available options for `resolution`: 360, 720, 1080, 2160
 ```js
@@ -56,7 +63,7 @@ const success = await client.downloadFile('QW8-UVmMm_Q', 'video.mp4', 'mp4', 360
 console.log('Downloaded:', success);
 ```
 
-### 4. Advanced Video Search (v2)
+### 5. Advanced Video Search (v2)
 Search with more parameters for advanced filtering.
 ```js
 const result = await client.searchV2({
@@ -69,63 +76,63 @@ const result = await client.searchV2({
 console.log(result);
 ```
 
-### 5. Video Comments
+### 6. Video Comments
 List comments for a video.
 ```js
 const result = await client.videoComments('kffacxfA7G4', 'snippet', 100);
 console.log(result);
 ```
 
-### 6. Video Details
+### 7. Video Details
 Get detailed information about a video.
 ```js
 const result = await client.videoDetails('XGGXlj6grzQ', 'contentDetails,snippet,statistics');
 console.log(result);
 ```
 
-### 7. Channel Details
+### 8. Channel Details
 Get detailed information about a channel.
 ```js
 const result = await client.channelDetails('UCfM3zsQsOnfWNUppiycmBuw', 'snippet,statistics');
 console.log(result);
 ```
 
-### 8. Channel Videos
+### 9. Channel Videos
 List videos from a channel.
 ```js
 const result = await client.channelVideos('UCvgfXK4nTYKudb0rFR6noLA', 'snippet,id', 'date', 50);
 console.log(result);
 ```
 
-### 9. Playlist Details
+### 10. Playlist Details
 Get details of a playlist.
 ```js
 const result = await client.playlistDetails('PLqpXi64f6ul2Nzd5hHdHS4XuWa7ix8Rm-', 'snippet');
 console.log(result);
 ```
 
-### 10. Playlist Videos
+### 11. Playlist Videos
 List videos in a playlist.
 ```js
 const result = await client.playlistVideos('RDMM', 'snippet', 50);
 console.log(result);
 ```
 
-### 11. Trending Videos
+### 12. Trending Videos
 List trending videos for a category and region.
 ```js
 const result = await client.trending('snippet', 1, 'US', 50);
 console.log(result);
 ```
 
-### 12. Video Categories
+### 13. Video Categories
 List all video categories.
 ```js
 const result = await client.videoCategories('snippet');
 console.log(result);
 ```
 
-### 13. Supported Regions (i18nRegions)
+### 14. Supported Regions (i18nRegions)
 List all supported regions.
 ```js
 const result = await client.i18nRegions();
