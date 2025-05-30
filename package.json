@@ -1,6 +1,6 @@
 {
   "name": "apigle",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Official JavaScript/TypeScript client for apigle.com API.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
